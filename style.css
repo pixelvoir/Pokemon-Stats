@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #1c1c1c;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.search-container {
+  margin: 20px;
+}
+
+input {
+  padding: 10px;
+  width: 250px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Pokémon card */
+.pokemon-card {
+  background: #2b2b2b;
+  width: 300px;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  text-align: left;
+}
+
+.pokemon-card h2 {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+.pokemon-card img {
+  display: block;
+  margin: 0 auto 15px auto;
+  width: 120px;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+.ability {
+  margin-top: 15px;
+  font-style: italic;
+  text-align: center;
+}

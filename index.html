@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My First Website</title>
-  </head>
-  <body>
-    <h1>Hello, world 👋</h1>
-    <h1>Hello, GitHub! you little shit</h1>
-    <p>This is my first Git repo.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pokémon Stats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Pokémon Stats Viewer</h1>
+
+  <div class="search-container">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Enter Pokémon name (e.g. pikachu)"
+    />
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <div id="card-container"></div>
+
+  <script src="script.js"></script>
+</body>
 </html>
