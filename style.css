@@ -1,12 +1,20 @@
+:root {
+  --red: #e3350d;
+  --white: #ffffff;
+  --dark: #1c1c1c;
+  --gray: #dddddd;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #1c1c1c;
-  color: white;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%);
+  min-height: 100vh;
   text-align: center;
 }
 
 h1 {
+  color: white;
   margin-top: 20px;
 }
 
@@ -15,52 +23,134 @@ h1 {
 }
 
 input {
-  padding: 10px;
-  width: 250px;
+  padding: 12px 18px;
+  width: 260px;
   font-size: 16px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
 }
 
 button {
-  padding: 10px 15px;
+  padding: 12px 18px;
   font-size: 16px;
+  border-radius: 25px;
+  border: none;
   cursor: pointer;
+  background: black;
+  color: white;
+  margin-left: 10px;
 }
 
 #card-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
-/* Pokémon card */
+/* Card wrapper for animation */
+.card-wrapper {
+  position: relative;
+  animation: drawBorder 0.8s ease forwards;
+}
+
+/* Pokémon Card */
 .pokemon-card {
-  background: #2b2b2b;
-  width: 300px;
-  border-radius: 12px;
+  background: white;
+  width: 340px;
   padding: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  border-radius: 12px;
   text-align: left;
+  position: relative;
 }
 
-.pokemon-card h2 {
+/* Fake border animation */
+.card-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--red);
+  border-radius: 14px;
+  animation: borderDraw 0.8s linear forwards;
+}
+
+@keyframes borderDraw {
+  0% {
+    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+  }
+  25% {
+    clip-path: polygon(0 0, 100% 0, 50% 50%, 50% 50%);
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 50%);
+  }
+  75% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  margin: 0;
   text-transform: capitalize;
-  margin-bottom: 10px;
 }
 
-.pokemon-card img {
+.types span {
+  background: var(--red);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* Sprite */
+.sprite {
   display: block;
-  margin: 0 auto 15px auto;
+  margin: 15px auto;
   width: 120px;
 }
 
+/* Gradient divider */
+.divider {
+  height: 2px;
+  background: linear-gradient(to right, var(--red), black, var(--red));
+  margin: 15px 0;
+}
+
+/* Stats */
 .stat {
   display: flex;
   justify-content: space-between;
   margin: 4px 0;
 }
 
-.ability {
-  margin-top: 15px;
+/* Abilities */
+.abilities {
+  margin-top: 12px;
   font-style: italic;
-  text-align: center;
+}
+
+/* Moves button */
+.moves-btn {
+  margin-top: 12px;
+  width: 100%;
+  background: var(--red);
+}
+
+.moves {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  display: none;
+  font-size: 14px;
 }
