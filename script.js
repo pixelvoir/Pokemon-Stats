@@ -3,6 +3,8 @@ const searchBtn = document.getElementById("searchBtn");
 const cardContainer = document.getElementById("card-container");
 const movesContainer = document.getElementById("moves-container");
 
+let currentMoves = [];
+
 searchBtn.addEventListener("click", searchPokemon);
 searchInput.addEventListener("keypress", e => {
   if (e.key === "Enter") searchPokemon();
@@ -13,6 +15,7 @@ async function searchPokemon() {
   if (!name) return;
 
   cardContainer.innerHTML = "Loading...";
+  movesContainer.classList.remove("visible");
   movesContainer.innerHTML = "";
 
   try {
@@ -39,6 +42,13 @@ function statColor(value) {
 }
 
 function renderPokemon(pokemon) {
+  // Animated sprite fallback
+  const animatedSprite =
+    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated
+      ?.front_default;
+
+  const sprite = animatedSprite || pokemon.sprites.front_default;
+
   const typesHTML = pokemon.types
     .map(t => `<span class="type-${t.type.name}">${capitalize(t.type.name)}</span>`)
     .join("");
@@ -58,6 +68,12 @@ function renderPokemon(pokemon) {
     `;
   }).join("");
 
+  const abilitiesHTML = pokemon.abilities
+    .map(a => `<span class="ability">${capitalize(a.ability.name.replace("-", " "))}</span>`)
+    .join("");
+
+  currentMoves = pokemon.moves;
+
   cardContainer.innerHTML = `
     <div class="pokemon-card">
       <div class="header">
@@ -65,19 +81,39 @@ function renderPokemon(pokemon) {
         <div class="types">${typesHTML}</div>
       </div>
 
-      <img class="sprite" src="${pokemon.sprites.front_default}" />
+      <img class="sprite" src="${sprite}" />
 
       <div class="divider"></div>
 
       ${statsHTML}
+
+      <div class="abilities">
+        ${abilitiesHTML}
+      </div>
+
+      <button class="show-moves" onclick="toggleMoves()">Show Moves</button>
     </div>
   `;
+}
 
-  renderMoves(pokemon.moves);
+function toggleMoves() {
+  if (!movesContainer.classList.contains("visible")) {
+    renderMoves(currentMoves);
+    movesContainer.classList.add("visible");
+  } else {
+    movesContainer.classList.remove("visible");
+  }
 }
 
 function renderMoves(moves) {
-  movesContainer.innerHTML = moves
-    .map(m => `<span class="move">${capitalize(m.move.name.replace("-", " "))}</span>`)
-    .join("");
+  movesContainer.innerHTML = `
+    <div class="moves-card">
+      ${moves
+        .map(
+          m =>
+            `<span class="move">${capitalize(m.move.name.replace("-", " "))}</span>`
+        )
+        .join("")}
+    </div>
+  `;
 }
